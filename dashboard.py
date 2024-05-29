@@ -47,10 +47,11 @@ canvas.create_text(
 dashboard_label = Label(root, text="Dashboard")
 dashboard_label.place(x=478, y=241)
 
-#-----------------UI cards-----------------
+#-----------------UI cards--------------------
 
 
 
 
 #execute tkinter
 root.mainloop()
+
