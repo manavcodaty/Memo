@@ -44,6 +44,10 @@ canvas.create_text(
 )
 
 #----------------Extra Labels-----------------
+
+"""
+TODO: Change all labels from Label to canvas.create_text
+"""
 dashboard_label = Label(root, text="Dashboard")
 dashboard_label.place(x=291.49, y=143.63)
 
