@@ -1,10 +1,10 @@
 # calculating coordinates
 
-x_top_left = 289.5
-y_top_left = 143.63
+x_top_left = float(input("Input top left x coordinate"))
+y_top_left = float(input("Input top left y coordinate"))
 
-width = 499.17
-height = 212.71
+width = float(input("Input width"))
+height = float(input("Input height"))
 
 x_bottom_right = x_top_left + width
 y_bottom_right = y_top_left + height
