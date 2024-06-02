@@ -1,6 +1,7 @@
 #All import modules
 from tkinter import *
 import tkinter.font as tkfont
+from tkinter import ttk
 
 #create root window
 root = Tk()
@@ -11,13 +12,15 @@ TODO: window title -> "Name + Memo dashboard"
 """
 root.title("Manav's Dashboard")
 
-#window size
+#configuration of root window
 root.geometry('1268x900')
+root.configure(background = "#F4F5F8")
+
 
 #create canvas
 canvas = Canvas(
     root,
-    bg = "#F4F5F8",
+    background = "#F4F5F8",
     height = 900,
     width = 1268,
     bd = 0,
@@ -49,6 +52,7 @@ canvas.create_text(
 TODO: Change all labels from Label to canvas.create_text
 """
 dashboard_label = Label(root, text="Dashboard")
+dashboard_label.config(fg = "#000000")
 dashboard_label.place(x=291.49, y=143.63)
 
 overview_label = Label(root, text="Overview")
@@ -60,8 +64,8 @@ canvas.create_rectangle(
     143.63, 
     788.67, 
     356.34, 
-    fill="#FFFFFF", 
-    outline="")
+    fill="#000000", 
+    outline="#000000")
 
 
 
