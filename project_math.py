@@ -7,7 +7,7 @@ width = float(input("Input width"))
 height = float(input("Input height"))
 
 x_bottom_right = x_top_left + width
-y_bottom_right = y_top_left + height
+y_bottom_right = y_top_left - height
 
 print(x_bottom_right, y_bottom_right)
 
