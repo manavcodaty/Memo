@@ -1,0 +1,342 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Dashboard App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Color(0xFFF7F8FC),
+      ),
+      home: DashboardPage(),
+    );
+  }
+}
+
+class DashboardPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search here...',
+                  filled: true,
+                  fillColor: Colors.white,
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 20),
+            Icon(Icons.notifications, color: Colors.grey),
+            SizedBox(width: 20),
+            CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://via.placeholder.com/150'), // Replace with the actual image URL
+            ),
+          ],
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('Menu'),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            buildDrawerItem(Icons.dashboard, 'Dashboard'),
+            buildDrawerItem(Icons.book, 'Learn'),
+            buildDrawerItem(Icons.check_box, 'To Do'),
+            buildDrawerItem(Icons.calendar_today, 'Calendar'),
+            buildDrawerItem(Icons.bar_chart, 'Statistics'),
+            buildDrawerItem(Icons.memory, 'Memo AI'),
+            buildDrawerItem(Icons.settings, 'Settings'),
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Dashboard',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  buildOverviewCard('180', 'Flashcards Created', Colors.pink.shade50, Colors.pink),
+                  buildOverviewCard('40', 'Tasks Completed', Colors.yellow.shade50, Colors.orange),
+                  buildOverviewCard('5', 'Hours Studied', Colors.green.shade50, Colors.green),
+                ],
+              ),
+              SizedBox(height: 16),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      children: [
+                        buildTaskCard(),
+                        SizedBox(height: 16),
+                        buildInfoRow(),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        buildCalendarCard(),
+                        SizedBox(height: 16),
+                        buildStudyScoreCard(),
+                        SizedBox(height: 16),
+                        buildStreakCard(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              buildTimerCard(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildDrawerItem(IconData icon, String title) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: () {},
+    );
+  }
+
+  Widget buildOverviewCard(String count, String label, Color bgColor, Color textColor) {
+    return Expanded(
+      child: Card(
+        color: bgColor,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(count, style: TextStyle(fontSize: 24, color: textColor, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8),
+              Text(label, style: TextStyle(fontSize: 16, color: textColor)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildTaskCard() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('Tasks', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Landing Page Design'),
+                Checkbox(value: true, onChanged: (value) {}),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Dashboard Builder'),
+                Checkbox(value: true, onChanged: (value) {}),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Mobile App Design'),
+                Checkbox(value: false, onChanged: (value) {}),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Illustrations'),
+                Checkbox(value: false, onChanged: (value) {}),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Promotional LP'),
+                Checkbox(value: false, onChanged: (value) {}),
+              ],
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {},
+              child: const  Text('+ New'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildCalendarCard() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const Text('Monday, 27th May 2023', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 16),
+            const Text('Biology: 01:00 PM - 02:00 PM'),
+            const Text('Maths: 02:00 PM - 03:00 PM'),
+            const Text('English: 03:00 PM - 04:00 PM'),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: TextButton(
+                onPressed: () {},
+                child: const Text('View Calendar'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildStudyScoreCard() {
+    return const Card(
+      color: Colors.pink,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('Study Score', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+            SizedBox(height: 8),
+            Text('97.5', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
+            SizedBox(height: 16),
+            Text('Recent:', style: TextStyle(fontSize: 16, color: Colors.white)),
+            Text('Spanish: +50', style: TextStyle(fontSize: 14, color: Colors.white)),
+            Text('English: +20', style: TextStyle(fontSize: 14, color: Colors.white)),
+            Text('Maths: +27.5', style: TextStyle(fontSize: 14, color: Colors.white)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildStreakCard() {
+    return const Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('Streak', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            SizedBox(height: 16),
+            Center(
+              child: Column(
+                children: [
+                  Text('15', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold)),
+                  Text('Keep it up, Vivan!'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildInfoRow() {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: buildInfoCard('New Tasks', '154', Colors.blue.shade50, Colors.blue),
+        ),
+        SizedBox(width: 16),
+        Expanded(
+          child: buildInfoCard('New Events', '6', Colors.purple.shade50, Colors.purple),
+        ),
+        SizedBox(width: 16),
+        Expanded(
+          child: buildInfoCard('Total Minutes', '540', Colors.red.shade50, Colors.red),
+        ),
+      ],
+    );
+  }
+
+  Widget buildInfoCard(String title, String value, Color bgColor, Color textColor) {
+    return Card(
+      color: bgColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Text(title, style: TextStyle(fontSize: 16, color: textColor)),
+            SizedBox(height: 8),
+            Text(value, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: textColor)),
+          ],
+        ),
+      ),
+    );
+  }
+
+Widget buildTimerCard() {
+return const Card(
+  child: Padding(
+    padding: EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            Text('Focus', style: TextStyle(fontSize: 18)),
+            Row(
+            children: [
+            Text('Break'),
+            SizedBox(width: 8),
+            Text('Rest'),
+          ],
+        ),
+      ],
+    ),
+  ],
+),
+),
+);
+}
+}

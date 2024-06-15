@@ -1,0 +1,503 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MemoApp());
+}
+
+class MemoApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: DashboardScreen(),
+    );
+  }
+}
+
+class DashboardScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: TextField(
+          decoration: InputDecoration(
+            hintText: 'Search here...',
+            prefixIcon: Icon(Icons.search),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide.none,
+            ),
+            filled: true,
+            contentPadding: EdgeInsets.all(0),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage('https://example.com/vivan_panda.jpg'),
+            ),
+          ),
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.pink,
+              ),
+              child: Text(
+                'memo',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.library_books),
+              title: Text('Learn'),
+            ),
+            ListTile(
+              leading: Icon(Icons.check_box),
+              title: Text('To Do'),
+            ),
+            ListTile(
+              leading: Icon(Icons.calendar_today),
+              title: Text('Calendar'),
+            ),
+            ListTile(
+              leading: Icon(Icons.bar_chart),
+              title: Text('Statistics'),
+            ),
+            ListTile(
+              leading: Icon(Icons.smart_toy),
+              title: Text('Memo Ai'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+            ),
+          ],
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  OverviewCard(title: 'Flashcards Created', value: '180', color: Colors.pink[100]!),
+                  SizedBox(width: 16),
+                  OverviewCard(title: 'Tasks completed', value: '40', color: Colors.orange[100]!),
+                  SizedBox(width: 16),
+                  OverviewCard(title: 'Hours Studied', value: '5', color: Colors.green[100]!),
+                ],
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Monday, 27th May 2023',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: CircleAvatar(
+                                  backgroundColor: Colors.red,
+                                  child: Icon(Icons.book, color: Colors.white),
+                                ),
+                                title: Text('Biology'),
+                                subtitle: Text('01:00 PM - 02:00 PM'),
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: CircleAvatar(
+                                  backgroundColor: Colors.red,
+                                  child: Icon(Icons.book, color: Colors.white),
+                                ),
+                                title: Text('Maths'),
+                                subtitle: Text('02:00 PM - 03:00 PM'),
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: CircleAvatar(
+                                  backgroundColor: Colors.red,
+                                  child: Icon(Icons.book, color: Colors.white),
+                                ),
+                                title: Text('English'),
+                                subtitle: Text('03:00 PM - 04:00 PM'),
+                              ),
+                              TextButton(
+                                onPressed: () {},
+                                child: Text('View Calendar'),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        Container(
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Tasks',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: Checkbox(value: true, onChanged: (value) {}),
+                                title: Text('Dashboard Builder'),
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: Checkbox(value: true, onChanged: (value) {}),
+                                title: Text('Mobile App Design'),
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: Checkbox(value: false, onChanged: (value) {}),
+                                title: Text('Illustrations'),
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: Checkbox(value: false, onChanged: (value) {}),
+                                title: Text('Promotional LP'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Text('+ New'),
+                                style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Study Score',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                '97.5',
+                                style: TextStyle(
+                                  fontSize: 48,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.pink,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Recent',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: Icon(Icons.language, color: Colors.pink),
+                                title: Text('Spanish'),
+                                trailing: Text('+50'),
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: Icon(Icons.book, color: Colors.pink),
+                                title: Text('English'),
+                                trailing: Text('+20'),
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: Icon(Icons.calculate, color: Colors.pink),
+                                title: Text('Maths'),
+                                trailing: Text('+27.5'),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        Container(
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Streak',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Center(
+                                child: CircularPercentIndicator(
+                                  radius: 60.0,
+                                  lineWidth: 13.0,
+                                  animation: true,
+                                  percent: 0.75,
+                                  center: new Text(
+                                    "15",
+                                    style: new TextStyle(
+                                        fontWeight: FontWeight.bold, fontSize: 20.0),
+                                  ),
+                                  circularStrokeCap: CircularStrokeCap.round,
+                                  progressColor: Colors.pink,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Center(
+                                child: Text('Keep it up, Vivan!'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.all(16),
+decoration: BoxDecoration(
+color: Colors.white,
+borderRadius: BorderRadius.circular(8),
+boxShadow: [
+BoxShadow(
+color: Colors.grey.withOpacity(0.1),
+spreadRadius: 5,
+blurRadius: 7,
+offset: Offset(0, 3),
+),
+],
+),
+child: Column(
+children: [
+Row(
+children: [
+Expanded(
+child: Column(
+children: [
+Text('New Tasks', style: TextStyle(fontSize: 16)),
+Text('154', style: TextStyle(fontSize: 24)),
+],
+),
+),
+Expanded(
+child: Column(
+children: [
+Text('New Events', style: TextStyle(fontSize: 16)),
+Text('6', style: TextStyle(fontSize: 24)),
+],
+),
+),
+Expanded(
+child: Column(
+children: [
+Text('Total Minutes', style: TextStyle(fontSize: 16)),
+Text('540', style: TextStyle(fontSize: 24)),
+],
+),
+),
+],
+),
+],
+),
+),
+),
+SizedBox(width: 16),
+Expanded(
+child: Container(
+padding: EdgeInsets.all(16),
+decoration: BoxDecoration(
+color: Colors.white,
+borderRadius: BorderRadius.circular(8),
+boxShadow: [
+BoxShadow(
+color: Colors.grey.withOpacity(0.1),
+spreadRadius: 5,
+blurRadius: 7,
+offset: Offset(0, 3),
+),
+],
+),
+child: Column(
+children: [
+Text('Focus Timer', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+SizedBox(height: 8),
+Row(
+mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+children: [
+Column(
+children: [
+Text('Focus', style: TextStyle(fontSize: 16)),
+Text('30:00', style: TextStyle(fontSize: 24)),
+],
+),
+Column(
+children: [
+Text('Break', style: TextStyle(fontSize: 16)),
+Text('5:00', style: TextStyle(fontSize: 24)),
+],
+),
+Column(
+children: [
+Text('Rest', style: TextStyle(fontSize: 16)),
+Text('10:00', style: TextStyle(fontSize: 24)),
+],
+),
+],
+),
+SizedBox(height: 16),
+ElevatedButton(
+  onPressed: () {},
+  child: Text('Start'),
+  style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+),
+],
+),
+),
+),
+],
+),
+],
+),
+),
+),
+);
+}
+}
+
+class OverviewCard extends StatelessWidget {
+final String title;
+final String value;
+final Color color;
+
+OverviewCard({required this.title, required this.value, required this.color});
+
+@override
+Widget build(BuildContext context) {
+return Expanded(
+child: Container(
+padding: EdgeInsets.all(16),
+decoration: BoxDecoration(
+color: color,
+borderRadius: BorderRadius.circular(8),
+boxShadow: [
+BoxShadow(
+color: Colors.grey.withOpacity(0.1),
+spreadRadius: 5,
+blurRadius: 7,
+offset: Offset(0, 3),
+),
+],
+),
+child: Column(
+crossAxisAlignment: CrossAxisAlignment.start,
+children: [
+Text(
+value,
+style: TextStyle(
+fontSize: 24,
+fontWeight: FontWeight.bold,
+),
+),
+SizedBox(height: 8),
+Text(
+title,
+style: TextStyle(fontSize: 16),
+),
+],
+),
+),
+);
+}
+}
