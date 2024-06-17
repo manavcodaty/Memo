@@ -17,6 +17,7 @@ dependencies:
   sqflite_common_ffi: any #added this dependency to resolve databaseFactory not initialized in windows
   cupertino_icons: ^1.0.6
   percent_indicator: ^4.2.3
+  responsive_framework: ^1.4.0
 
 dev_dependencies:
   flutter_test:
